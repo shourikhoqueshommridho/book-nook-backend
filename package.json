@@ -1,0 +1,23 @@
+{
+  "name": "book-nook-server",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "BookNook online library REST API (Express + MongoDB native driver)",
+ "scripts": {
+  "dev": "tsx watch src/server.js",
+  "build": "echo \"No build step required for JavaScript backend\"",
+  "start": "node src/server.js",
+  "test": "node --test \"src/**/*.test.js\""
+},
+  "dependencies": {
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "jose": "^6.2.14",
+    "mongodb": "^7.8.0",
+    "multer": "^2.5.0"
+  },
+  "devDependencies": {
+    "@types/multer": "^2.3.0",
+    "tsx": "^4.23.15"
+  }
+}
