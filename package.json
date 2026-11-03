@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "description": "BookNook online library REST API (Express + MongoDB native driver)",
- "scripts": {
-  "dev": "tsx watch src/server.js",
-  "build": "echo \"No build step required for JavaScript backend\"",
-  "start": "node src/server.js",
-  "test": "node --test \"src/**/*.test.js\""
-},
+  "scripts": {
+    "dev": "tsx watch src/server.js",
+    "build": "echo \"No build step required for JavaScript backend\"",
+    "start": "node src/server.js",
+    "test": "node --test \"src/**/*.test.js\""
+  },
   "dependencies": {
     "dotenv": "^18.0.9",
     "express": "^5.3.0",

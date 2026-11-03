@@ -1,22 +1,10 @@
-/**
- * Integration tests for the Borrow System (POST/GET/DELETE /api/borrows).
- *
- * Setup (run via `npm test` — see src/__tests__/harness.js):
- * - The API app is booted on an ephemeral port with a **separate throwaway
- *   MongoDB test database** (`book-nook-test-<random hex>`), which is dropped
- *   during teardown — the real "book-nook" database is never touched.
- * - JWTs are NOT faked: the suite generates a real Ed25519 keypair, serves
- *   the public key from a throwaway local JWKS endpoint, and points the
- *   app's JWKS_URL/JWT_ISSUER/JWT_AUDIENCE environment overrides at it, so
- *   the exact production verification path (jose remote JWKS) is used.
- */
 import assert from "node:assert/strict";
 import { ObjectId } from "mongodb";
 import { after, before, describe, it } from "node:test";
 
 import { startTestEnv } from "./harness.js";
 
-/* --- Users ----------------------------------------------------------------- */
+
 
 const ALICE = { sub: "user-alice", name: "Alice Tester", email: "alice@example.com" };
 const BOB = { sub: "user-bob", name: "Bob Tester", email: "bob@example.com" };
@@ -26,7 +14,7 @@ const RACERS = Array.from({ length: 6 }, (_, i) => ({
   email: `racer-${i}@example.com`,
 }));
 
-/* --- Shared test fixtures ---------------------------------------------------- */
+
 
 let api;
 let signToken;

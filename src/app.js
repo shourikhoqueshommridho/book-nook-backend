@@ -5,7 +5,7 @@ import categoriesRouter from "./routes/categories.js";
 import uploadsRouter from "./routes/uploads.js";
 import borrowsRouter from "./routes/borrows.js";
 import { ApiError } from "./errors.js";
-import { getDatabase } from "./database.js";
+
 
 /**
  * The BookNook Express app. Kept separate from server.js so the test suite
