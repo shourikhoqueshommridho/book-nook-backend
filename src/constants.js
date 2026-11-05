@@ -1,17 +1,15 @@
-/** Domain constants shared by all BookNook API routes. */
 
-/** Database name. MONGODB_DB lets tests (and deployments) override it. */
 export const DATABASE_NAME = process.env.MONGODB_DB ?? "book-nook";
 export const BOOKS_COLLECTION = "books";
 export const BORROWS_COLLECTION = "borrows";
 
-/** Lifecycle values stored in the borrows collection's `status` field. */
+
 export const BORROW_STATUS = {
   ACTIVE: "active",
   RETURNED: "returned",
 };
 
-/** The assignment's five canonical book categories. */
+
 export const BOOK_CATEGORIES = ["Fiction", "Science", "History", "Kids", "Others"];
 
 /** Query sort keys understood by GET /api/books, mapped to MongoDB sorts. */
