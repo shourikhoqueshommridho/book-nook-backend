@@ -1,21 +1,9 @@
-
-/**
- * BookNook API — Express server
- * Single-file backend with MongoDB connection.
- */
-
 import "dotenv/config";
 import express from "express";
 import multer from "multer";
 import { MongoClient, ObjectId } from "mongodb";
 import { requireAuth, ApiError } from "./auth.js";
-
-/* --- Server setup ------------------------------------------------------------ */
-
 const app = express();
-const PORT = process.env.PORT || 5000;
-
-/* --- Domain constants -------------------------------------------------------- */
 
 const DATABASE_NAME = "book-nook";
 const BOOKS_COLLECTION = "books";
@@ -35,13 +23,9 @@ const MAX_PAGE_SIZE = 60;
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const IMGBB_UPLOAD_URL = "https://api.imgbb.com/1/upload";
-
-/* --- MongoDB connection ------------------------------------------------------ */
-
 if (!process.env.MONGODB_URI) {
   console.error("WARNING: MONGODB_URI is missing!");
 }
-
 const client = new MongoClient(process.env.MONGODB_URI ?? "", {
   serverSelectionTimeoutMS: 5000,
 });
@@ -81,9 +65,6 @@ function getDatabase() {
 
   return dbPromise;
 }
-
-/* --- Books collection -------------------------------------------------------- */
-
 async function getBooksCollection() {
   const db = await getDatabase();
   const books = db.collection(BOOKS_COLLECTION);
@@ -106,17 +87,12 @@ async function getBooksCollection() {
   await indexesPromise;
   return books;
 }
-
-/* --- Date and response helpers ----------------------------------------------- */
-
 function toISOString(value, fallback) {
   const date = value ? new Date(value) : fallback;
-
-  if (Number.isNaN(date.getTime())) {
+if (Number.isNaN(date.getTime())) {
     return fallback.toISOString();
   }
-
-  return date.toISOString();
+return date.toISOString();
 }
 
 function toApiBook(doc) {
@@ -144,9 +120,6 @@ function toApiBook(doc) {
     updatedAt,
   };
 }
-
-/* --- Request validation helpers ---------------------------------------------- */
-
 function requireString(value, field) {
   if (typeof value !== "string" || value.trim().length === 0) {
     throw new ApiError(
@@ -237,9 +210,6 @@ function parseId(id) {
 
   return new ObjectId(id);
 }
-
-/* --- Query helpers ----------------------------------------------------------- */
-
 function parsePagination(query) {
   const page = Math.max(
     1,
@@ -356,9 +326,6 @@ function buildBookDocument(body, { partial }) {
 
   return doc;
 }
-
-/* --- Image upload helpers ---------------------------------------------------- */
-
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
@@ -462,8 +429,6 @@ async function uploadToImgbb(buffer) {
 
   return result;
 }
-
-/* --- Middleware -------------------------------------------------------------- */
 
 const corsOrigin = process.env.CORS_ORIGIN ?? "*";
 
