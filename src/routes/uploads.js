@@ -5,8 +5,7 @@ import { requireAuth } from "../auth.js";
 
 const router = Router();
 
-/* The parser must sit on this router with a larger limit than the global
-   JSON body parser, because images travel as multipart form data. */
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 1 },
@@ -30,12 +29,7 @@ const upload = multer({
     );
   },
 });
-
-/* imgbb accepts: JPEG, PNG, GIF, WebP, AVIF, BMP — up to 32 MB.
-   We are stricter: 5 MB and no BMP. */
 const IMGBB_UPLOAD_URL = "https://api.imgbb.com/1/upload";
-
-/** Magic-byte sniffing — mimetypes from the client can be spoofed. */
 function assertRealImage(buffer) {
   const jpeg = buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
   const png =
@@ -57,9 +51,6 @@ function assertRealImage(buffer) {
     );
   }
 }
-
-/* POST /api/uploads/image — multipart/form-data with one `image` field.
-   Requires authentication (JWT verified against Better Auth's JWKS). */
 router.post(
   "/image",
   requireAuth,
