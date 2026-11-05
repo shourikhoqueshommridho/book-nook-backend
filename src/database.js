@@ -95,10 +95,6 @@ export async function getBorrowsCollection() {
 
   return borrows;
 }
-
-/**
- * Get books collection and create indexes once.
- */
 export async function getBooksCollection() {
   const db = await getDatabase();
   const books = db.collection(BOOKS_COLLECTION);
@@ -135,17 +131,11 @@ function toISOString(value, fallback) {
 
   return date.toISOString();
 }
-
-/**
- * Convert MongoDB document into API response format.
- */
 export function toApiBook(doc) {
   const now = new Date();
-
-  const createdAt = toISOString(doc.createdAt, now);
+ const createdAt = toISOString(doc.createdAt, now);
   const updatedAt = toISOString(doc.updatedAt, new Date(createdAt));
-
-  return {
+ return {
     id: doc._id.toString(),
     title: doc.title,
     author: doc.author,
@@ -167,9 +157,6 @@ export function toApiBook(doc) {
   };
 }
 
-/**
- * Convert a MongoDB borrows document into the API response format.
- */
 export function toApiBorrow(doc) {
   const createdAt = new Date();
 
