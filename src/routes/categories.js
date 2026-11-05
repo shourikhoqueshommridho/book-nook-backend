@@ -4,10 +4,7 @@ import { BOOK_CATEGORIES } from "../constants.js";
 
 const router = Router();
 
-/* GET /api/categories
-   Returns the categories that can be used as filters. When the library
-   is still empty (no books stored yet) the canonical five assignment
-   categories are returned so the UI always has a complete filter list. */
+
 router.get("/", async (_req, res) => {
   const books = await getBooksCollection();
   const distinct = await books.distinct("category");
